@@ -14,7 +14,7 @@ export default class CasesList extends Component {
       <Container className="mt-5">
 				<Row>
 					<div className="ml-auto mb-2 mt-2">
-					<Link to="/article/add">
+					<Link to="/add">
 						<Button>Add</Button>
 					</Link>
 					</div>
@@ -47,7 +47,7 @@ export default class CasesList extends Component {
 												<TableData>Still Searching</TableData>
 												<TableData>In Mall</TableData>
 												<TableData>
-													<Link to="/" >
+													<Link to="/case/1" >
 														<LinkButton>View</LinkButton>
 													</Link>
 													<Link to="/">

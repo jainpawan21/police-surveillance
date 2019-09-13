@@ -24,8 +24,11 @@ class Login extends Component {
     console.log(window.location.pathname)
     window.location.pathname = "/"
   }
+
+  
   render() {
     return (
+      
       <div style={{display: 'flex', justifyContent: 'center'}}>
       <Container style={{border: '2px solid black', width: "400px"}} className="p-5 mt-5"   >
         <h2 className="offset-4 mb-4">Sign In</h2>
@@ -62,8 +65,8 @@ class Login extends Component {
         </Form>
       </Container>
       </div>
+  
     );
   }
 }
-
 export default Login;
