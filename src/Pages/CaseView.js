@@ -1,7 +1,25 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-
+import axios from '../Constants/axios'
 export default class CaseView extends Component {
+
+  state = {
+    img: '',
+    description: '',
+    name: '',
+    status: '',
+    lastSeen: []
+  }
+
+  componentDidMount(){
+    axios.post('',{
+      stationcode: this.props.match.params.stcode,
+      id: this.props.match.params.id
+    })
+    .then((res) => {
+
+    })
+  }
   render() {
     return (
       <div>
@@ -9,11 +27,11 @@ export default class CaseView extends Component {
           <Row>
           <Col md="5">
             <Row>
-              <h4>Case Id: 899</h4>
+              <h5>Case Id: {this.props.match.params.id}</h5>
             </Row>
             <Row>
               <Col>
-                <img src={require('./../Constants/logo512.png')} width="80%" height="380" alt="testImage"/>
+                <img src={`https://storage.googleapis.com/fir-76656.appspot.com/${this.props.match.params.id}.jpg`} width="80%" height="380" alt="testImage" className="m-4 border"/>
               </Col>
             </Row>
             <Row>
@@ -38,24 +56,7 @@ export default class CaseView extends Component {
               <br />
               <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
               <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
+              
             </div>
           </Col>
           </Row>

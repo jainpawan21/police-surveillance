@@ -4,13 +4,14 @@ import {
   FormGroup, Label, Input,
   Button,
 } from 'reactstrap';
-
+import axios from '../Constants/axios';
 
 class Login extends Component {
 
   state ={
-    email: '',
-    password: ''
+    code: '',
+    password: '',
+    token: ''
   }
 
   handleInputChange = (e) => {
@@ -20,9 +21,18 @@ class Login extends Component {
   } 
   handleLoginSubmit = (e) =>{
     e.preventDefault();
-    alert('email ' + this.state.email + 'password ' + this.state.password)
-    console.log(window.location.pathname)
-    window.location.pathname = "/"
+    axios.post('login',{
+      stationcode: this.state.code,
+      password: this.state.password
+    })
+    .then((res) => {
+      console.log(res)
+      // window.location.pathname = "/"
+    })
+    .catch((err) => {
+      console.log(err.response)
+      alert('Something Went Wrong, Try Again')
+    })
   }
 
   
@@ -36,12 +46,11 @@ class Login extends Component {
           
             <Col>
               <FormGroup >
-                <Label>Email</Label>
+                <Label for="code">Station Code</Label>
                 <Input
-                  type="email"
-                  name="email"
-                  id="exampleEmail"
-                  placeholder="myemail@email.com"
+                  type="text"
+                  name="code"
+                  id="code"
                   onChange={this.handleInputChange}
                 />
               </FormGroup>
@@ -54,7 +63,6 @@ class Login extends Component {
                 type="password"
                 name="password"
                 id="examplePassword"
-                placeholder="********"
                 onChange={this.handleInputChange}
               />
             </FormGroup>

@@ -12,10 +12,10 @@ function App() {
       <>
         {window.location.pathname === '/login' ? null : <NavBar />}
         <Switch>
-          <Route path="/" exact render={() => <CasesList />} />
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/add" render={() => <CaseAdd />} />
-          <Route path="/case/:id" render={() => <CaseView />} />
+          <Route path="/" exact render={(props) => <CasesList {...props}/>}/>
+          <Route path="/login" render={(props) => <Login {...props}/>} />
+          <Route path="/add" render={(props) => <CaseAdd {...props}/>} />
+          <Route path="/case/:stcode/:id" render={(props) => <CaseView {...props}/>} />
           
         </Switch>
       </>
