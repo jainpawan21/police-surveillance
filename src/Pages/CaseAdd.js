@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import {Container, Row, Form, Label, Col,Button, Input} from 'reactstrap'
+import {Container, Row, Form, Label, Col,Button } from 'reactstrap'
 import axios from './../Constants/axios'
 export default class CaseAdd extends Component {
 
   state ={
-    code: '',
+    code: localStorage.getItem('code'),
     name: '',
     description: '',
     adhaar: '',
     file: {},
     mark: '',
+    imageUploadProgress: '0'
   }
   handleInputChange = (e) => {
     this.setState({
@@ -31,7 +32,10 @@ export default class CaseAdd extends Component {
     console.log(formData)
     axios.post('upload',
       
-      formData
+      formData,
+      {
+        onUploadProgress: (p) => this.setState({imageUploadProgress: (Math.floor((p.loaded / this.state.file.size) * 100))})
+      }
     )
     .then((res) => {
       console.log(res)
@@ -41,6 +45,9 @@ export default class CaseAdd extends Component {
       }, 1000)
     })
     .catch((err) => {
+      this.setState({
+        imageUploadProgress: ''
+      })
       console.log(err.response)
       alert('Can Not Add Right Now')
      
@@ -49,8 +56,8 @@ export default class CaseAdd extends Component {
   }
 
   handleUploadPhoto = (e) => {
-    console.log(e.target.files[0])
     this.setState({
+      
       file: e.target.files[0]
     })  
   }
@@ -64,10 +71,10 @@ export default class CaseAdd extends Component {
         <Form>
           <Row className="form-input">
             <Col md="3">
-            <Label for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
+            <Label  for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
             </Col>
             <Col md="9">
-            <input className="form-control" type="textfileld" name="code" id="code" value={this.state.code} onChange={(e) => this.handleInputChange(e)} required/>
+            <input style={{backgroundColor: "grey", fontWeight: '1000'}} className="form-control" type="textfileld" name="code" id="code" value={this.state.code} disabled/>
             </Col >
           </Row>
           <br/>
@@ -85,7 +92,7 @@ export default class CaseAdd extends Component {
             <Label for="description">Description<span style={{color: 'red'}}>&#42;</span> : </Label>
             </Col>
             <Col md="9">
-            <input className="form-control" type="textarea" name="description" id="description" value={this.state.description} onChange={(e) => this.handleInputChange(e)} required/>
+            <textarea className="form-control" rows="4" name="description" id="description" value={this.state.description} onChange={(e) => this.handleInputChange(e)} required/>
             </Col >
           </Row>
           <br />
@@ -113,6 +120,8 @@ export default class CaseAdd extends Component {
             </Col>
             <Col md="9">
             <input  type="file" name="file" id="file" onChange={(e) => this.handleUploadPhoto(e)} required/>
+            <br />
+           <span>Uploaded: {this.state.imageUploadProgress}% </span> 
             </Col >
           </Row>
           <br />

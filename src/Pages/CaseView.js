@@ -1,26 +1,70 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import axios from '../Constants/axios'
+import Loading from '../Components/Loader/Loading'
 export default class CaseView extends Component {
 
   state = {
+    loading: true,
     img: '',
     description: '',
     name: '',
+    mark: '',
     status: '',
-    lastSeen: []
+    lastSeen: undefined
   }
 
   componentDidMount(){
-    axios.post('',{
+    axios.post('caseid',{
       stationcode: this.props.match.params.stcode,
       id: this.props.match.params.id
     })
     .then((res) => {
-
+      console.log(res.data.data)
+      this.setState({
+        lastSeen: res.data.data.seen,
+        img: res.data.data.img,
+        description: res.data.data.desc,
+        mark: res.data.data.mark,
+        name: res.data.data.name,
+        status: res.data.data.status,
+        loading: false
+      })
+      
+  
+    })
+    .catch((err) => {
+      this.setState({
+        loading: true
+      })
     })
   }
   render() {
+    const ltSeen = 
+      typeof(this.state.lastSeen) === 'object' ?
+        <div>
+              {this.state.lastSeen.map((val, i) => {
+                return(
+                  <Row key={i}>
+                    <h4>{i+1}. {val}</h4>
+                  </Row>
+                )
+              })}
+              
+              
+
+            </div> : 'No any last seeen'
+      
+    
+    const st = this.state.status ? 'Found' : 'Not Found'
+    if(this.state.loading){
+      return (
+        <div style={{display: 'flex', justifyContent: 'center', height:'80vh'}}>
+					<Loading />
+				</div>
+      )
+    }
+    else {
     return (
       <div>
         <Container className="mt-5">
@@ -31,37 +75,34 @@ export default class CaseView extends Component {
             </Row>
             <Row>
               <Col>
-                <img src={`https://storage.googleapis.com/fir-76656.appspot.com/${this.props.match.params.id}.jpg`} width="80%" height="380" alt="testImage" className="m-4 border"/>
+                 <img src={`https://storage.googleapis.com/fir-76656.appspot.com/${this.state.img}`} width="80%" height="380" alt="testImage" className="m-4 border"/>
+                
               </Col>
             </Row>
-            <Row>
-              <h6><b>Name : </b>ABCDEFGH</h6>
-              <br/>
-              <h6><b>Description : </b>This person is lost in the main market</h6>
-              <br/>
-              <h6><b>Status : </b>Not Found</h6>
-            </Row>
+            
+              <Row>
+              <h6><b>Name : </b>{this.state.name}</h6>
+              </Row>
+              
+              <Row>
+              <h6><b>Description : </b>{this.state.description}</h6>
+              </Row>
+              
+              <Row>
+              <h6><b>Status : </b>{st}</h6>
+              </Row>
+            
           </Col>
           <Col md="6">
-            <div>
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              <h4>1. Seen at Main Market at 6:00 pm on Wednesday.</h4>
-              <br />
-              
-            </div>
+            <>
+            <h3>Last seen</h3>
+            {ltSeen}
+            </>
           </Col>
           </Row>
         </Container>
       </div>
     )
+    }
   }
 }

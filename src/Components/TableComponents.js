@@ -4,13 +4,13 @@ export const Table = styled.table`
 	align-self: center;
 	width: 100%
 	border-collapse: collapse;
-	
+	margin-bottom: 40px;
 `;
 
 export const TableRow = styled.tr`
-	// :nth-of-type(add) {
-	// 	background: #707070;
-	// }
+	:nth-of-type(add) {
+		background: #707070;
+	}
 `;
 export const TableHeader = styled.th`
 	background: #333;
@@ -24,6 +24,8 @@ export const TableHeader = styled.th`
 export const TableData = styled.td`
 	border: 1px solid #ccc;
 	text-align: center;
+	color: ${props => (props.bgcolor ? props.bgcolor : "black")};	
+	font-weight: '800';
 `;
 
 export const LinkButton = styled.button`
