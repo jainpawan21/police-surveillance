@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom'
+import './App.css'
 import NavBar from './Components/NavBar'
 import Login from './Pages/Login'
 import CasesList from './Pages/CasesList'
@@ -7,9 +8,9 @@ import CaseAdd from './Pages/CaseAdd'
 import CaseView from './Pages/CaseView'
 import StationAdd from './Pages/StationAdd'
 import ErrorPage from './Components/ErrorPage/ErrorPage'
+
 function App() {
   function requireCheck() {
-    console.log(window.location.pathname)
 		if (localStorage.getItem("token")) {
 			return true;
 		}

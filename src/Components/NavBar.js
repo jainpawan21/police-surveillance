@@ -15,22 +15,22 @@ class NavBar extends Component{
     });
   }
 
-  logout = (e) => {
-    alert('Logging Out')
+  logout = (e) => {   
     localStorage.clear();
     window.location.pathname = "/login"
   }
   render() {
       return(
           <React.Fragment>
-            <Navbar className="navbar-light shadow" sticky={'top'} style={{backgroundColor: "#ffffff"}} expand="sm">
+            <Navbar className="navbar-light shadow" style={{backgroundColor: 'white'}} sticky={'top'}  expand="sm">
               <div className="container">
                 
                 <NavbarBrand className="mr-auto" href="/">
-                <video src={require('../Constants/police-light-2.mp4')} type="application/mp4" height="50px" autoPlay loop/>&emsp;&emsp;&emsp; &emsp;&emsp;&emsp; <b>POLICE SURVIELLANCE</b>
+                   POLICE SURVIELLANCE
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggleNav} className="mr-2" style={{outline: 'none'}}/>
                 <Collapse isOpen={this.state.isNavOpen} navbar>
+                  <div className="ml-auto mr-5"><img src={require('../Constants/ashok-chakra.png')} width="40" height="40" alt="ashok-chakra"/></div>
                   <Nav className="ml-auto" navbar>
                     <NavItem className="ml-auto mr-auto" >
                         <NavLink className="nav-link" to="/">
@@ -48,7 +48,7 @@ class NavBar extends Component{
                         </NavLink>
                     </NavItem> : null }
                     {localStorage.getItem('token') !== undefined ? <NavItem className="ml-auto mr-auto">
-                        <Button  onClick={(e) => this.logout(e)}>LogOut</Button>
+                        <Button className="ml-2" color="success" onClick={(e) => this.logout(e)}>LogOut</Button>
                        
                     </NavItem>: null}
                   </Nav>

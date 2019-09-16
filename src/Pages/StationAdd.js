@@ -7,7 +7,8 @@ export default class CaseAdd extends Component {
     email: '',
     stationcode: '',
     type: 'user',
-    password: ''
+    password: '',
+    stations: []
   }
 
   handleInputChange = (e) => {
@@ -27,7 +28,6 @@ export default class CaseAdd extends Component {
       )
       .then((res) => {
         console.log(res)
-        alert('Added Successfully')
         setTimeout(() => {
           window.location.pathname = "/"
         }, 1000)

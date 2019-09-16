@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'https://ac482598.ngrok.io/'
+  baseURL: 'https://makethoninfy.herokuapp.com/'
 })
 
 export default instance

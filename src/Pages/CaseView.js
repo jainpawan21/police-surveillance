@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Card, CardImg, CardText, CardBody,
+  CardTitle,ListGroupItem } from 'reactstrap'
 import axios from '../Constants/axios'
 import Loading from '../Components/Loader/Loading'
 export default class CaseView extends Component {
@@ -45,21 +46,21 @@ export default class CaseView extends Component {
         <div>
               {this.state.lastSeen.map((val, i) => {
                 return(
-                  <Row key={i}>
-                    <h4>{i+1}. {val}</h4>
-                  </Row>
+                  <div>
+                    <ListGroupItem color="success" key={i} className="mb-1">{i+1}. {val}</ListGroupItem>
+                  </div>
                 )
               })}
               
               
 
-            </div> : 'No any last seeen'
+            </div> : <ListGroupItem>No any last seeen</ListGroupItem>
       
     
     const st = this.state.status ? 'Found' : 'Not Found'
     if(this.state.loading){
       return (
-        <div style={{display: 'flex', justifyContent: 'center', height:'88vh', backgroundColor: 'black'}}>
+        <div style={{display: 'flex', justifyContent: 'center', height:'92vh', backgroundColor: 'black'}}>
 					<Loading />
 				</div>
       )
@@ -70,32 +71,24 @@ export default class CaseView extends Component {
         <Container className="mt-5">
           <Row>
           <Col md="5">
-            <Row>
-              <h5>Case Id: {this.props.match.params.id}</h5>
-            </Row>
-            <Row>
-              <Col>
-                 <img src={`https://storage.googleapis.com/fir-76656.appspot.com/${this.state.img}`} width="80%" height="380" alt="testImage" className="m-4 border"/>
+            <Card className="shadow" style={{borderRadius: '10px'}}>
+              <CardBody>
+                <CardTitle><b>CaseId: </b>{this.props.match.params.id}</CardTitle>
+              </CardBody>
+              <CardImg top src={`https://storage.googleapis.com/fir-76656.appspot.com/${this.state.img}`} alt={this.state.name} height="350"/>
+              <CardBody className="justify-center">
+              <CardText><b>Name: </b>{this.state.name}</CardText>
+              <CardText><b>Status: </b>{st}</CardText>
+              <CardText><b>Description: </b>{this.state.description}</CardText>
                 
-              </Col>
-            </Row>
+              </CardBody>
             
-              <Row>
-              <h6><b>Name : </b>{this.state.name}</h6>
-              </Row>
-              
-              <Row>
-              <h6><b>Description : </b>{this.state.description}</h6>
-              </Row>
-              
-              <Row>
-              <h6><b>Status : </b>{st}</h6>
-              </Row>
+            </Card>
             
           </Col>
-          <Col md="6">
+          <Col md="7">
             <>
-            <h3>Last seen</h3>
+            <h4>Last Seen : </h4>
             {ltSeen}
             </>
           </Col>

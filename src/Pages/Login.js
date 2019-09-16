@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Container} from 'reactstrap';
+import {Container, Card, CardBody, CardText, CardImg} from 'reactstrap';
 import axios from '../Constants/axios';
 
 class Login extends Component {
@@ -27,7 +26,6 @@ class Login extends Component {
       if(res.status === 200){
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('code',this.state.code)
-        alert(res.data.msg)
         window.location.pathname = "/"
       }
       else {
@@ -41,16 +39,19 @@ class Login extends Component {
     })
   }
 
-  
   render() {
     return (
       
-      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', background: 'url(require(../Constants/logo512.png))'}}>
-      <Container style={{border: '2px solid black', width: "350px", height:"400px", alignSelf: 'center' }} className="p-5 mt-5"   >
-        <h2 className="offset-4 mb-4">Sign In</h2>
+      <div style={{display: 'flex', justifyContent: 'center'}} className="loginBackGround">
+        
+      <Container style={{width: "500px", alignSelf: 'center' }} className="mt-4"   >
+        <Card className="shadow">
+          <CardImg top src={require('../Constants/satyamev-jayate.jpg')}/>
+          <CardBody className="p-5">
+        <h3 style={{textAlign: 'center'}}><CardText className="mb-4 bold">Police Surveillance Portal</CardText></h3>
         <form>
   <div className="form-group">
-    <label htmlFor="code"><b>Police Station Code</b></label>
+    <label htmlFor="code"><b >Police Station Code</b></label>
     <input type="text" className="form-control" name="code" id="code" maaria-describedby="code" placeholder="Enter Police Station Code" onChange={(e) => this.handleInputChange(e)}/>
   </div>
   <div className="form-group">
@@ -58,10 +59,11 @@ class Login extends Component {
     <input type="password" className="form-control" name="password" id="password" placeholder="Password" onChange={(e) => this.handleInputChange(e)}/>
   </div>
   <div style={{textAlign: 'center'}}>
-  <button type="submit" className="btn btn-primary" onClick={(e) => this.handleLoginSubmit(e)}>Submit</button>
+  <button type="submit" className="btn btn-success" onClick={(e) => this.handleLoginSubmit(e)}>Submit</button>
   </div>
 </form>
-         
+          </CardBody>
+         </Card>
          
           
        

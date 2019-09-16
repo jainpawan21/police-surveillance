@@ -198,14 +198,14 @@ export default class CasesList extends Component {
 		const code = localStorage.getItem('code')
 		if(this.state.data.length === 0){
 			return (
-				<div style={{display: 'flex', justifyContent: 'center', height:'88vh', backgroundColor: 'black'}}>
+				<div style={{display: 'flex', justifyContent: 'center', height:'92vh', backgroundColor: 'black'}}>
 					<Loading />
 				</div>
 			)
 		}
 		else{
     return (
-			code === 'ADMIN' ? <div>
+			code === 'ADMIN' ? <div >
 				<>
 				<Container className="mt-5">
 				<Row>
@@ -222,7 +222,7 @@ export default class CasesList extends Component {
 				
 					<div className="ml-auto mb-2 mt-2">
 					<Link to="/add">
-						<Button>Add</Button>
+						<Button color="danger">Add</Button>
 					</Link>
 					</div>
 				</Row>
@@ -259,10 +259,10 @@ export default class CasesList extends Component {
 												<TableData bgcolor={color}> {st}</TableData>
 												<TableData>{lastseen}</TableData>
 												<TableData>
-													<Link to={`/case/${record.stationcode}/${record.id}`} >
-														<LinkButton>View</LinkButton>
+												<Link to={`/case/${record.stationcode}/${record.id}`} >
+														<Button color="info">View</Button>
 													</Link>
-													{record.status === 0 ? <LinkButton onClick={(e) => this.setSolved(e, record.stationcode, record.id)}>Solved</LinkButton> : null}
+													{record.status === 0 ?<Button color="success" className="ml-1" onClick={(e) => this.setSolved(e, record.stationcode, record.id)}>Solved</Button> : null}
 												</TableData>
 											</TableRow>
 										</tbody>
@@ -295,7 +295,7 @@ export default class CasesList extends Component {
 				
 					<div className="ml-auto mb-2 mt-2">
 					<Link to="/add">
-						<Button>Add</Button>
+						<Button color="danger">Add</Button>
 					</Link>
 					</div>
 				</Row>
@@ -325,7 +325,7 @@ export default class CasesList extends Component {
 												<TableData>{record.id} </TableData>
 												<TableData>
 													{/* <img src={require('./../Constants/logo512.png')} width="100" height="100" alt="testImage"/> */}
-													<img src={`https://storage.googleapis.com/fir-76656.appspot.com/${record.img}`} width="100" height="100" alt="testImage "/>													
+													<img src={`https://storage.googleapis.com/fir-76656.appspot.com/${record.img}`} width="100" height="100" alt={record.name} />													
 												</TableData>
 												<TableData>{record.name}</TableData>
 												<TableData>{desc}</TableData>
@@ -333,9 +333,9 @@ export default class CasesList extends Component {
 												<TableData>{lastseen}</TableData>
 												<TableData>
 													<Link to={`/case/${record.stationcode}/${record.id}`} >
-														<LinkButton>View</LinkButton>
+														<Button color="info">View</Button>
 													</Link>
-													{record.status === 0 ? <LinkButton onClick={(e) => this.setSolved(e, record.stationcode, record.id)}>Solved</LinkButton> : null}
+													{record.status === 0 ? <Button color="success" className="ml-1" onClick={(e) => this.setSolved(e, record.stationcode, record.id)}>Solved</Button> : null}
 												</TableData>
 											</TableRow>
 										</tbody>

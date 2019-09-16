@@ -2,15 +2,20 @@ import styled from "styled-components";
 
 export const Table = styled.table`
 	align-self: center;
-	width: 100%
-	border-collapse: collapse;
+	border: collapse;
+	width: 100%;
+	border-radius: 20px;
 	margin-bottom: 40px;
 `;
 
 export const TableRow = styled.tr`
-	:nth-of-type(add) {
-		background: #707070;
-	}
+	 border-bottom: 1px solid grey;
+	// :nth-of-type(odd) {
+	// 	background: #eaeaea;
+	// }
+	// :nth-of-type(even) {
+	// 	background: #ffffff;
+	// }
 `;
 export const TableHeader = styled.th`
 	background: #333;
@@ -22,7 +27,9 @@ export const TableHeader = styled.th`
 `;
 
 export const TableData = styled.td`
-	border: 1px solid #ccc;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	
 	text-align: center;
 	color: ${props => (props.bgcolor ? props.bgcolor : "black")};	
 	font-weight: '800';
@@ -35,12 +42,6 @@ export const LinkButton = styled.button`
 	margin: 2px 2px;
 	background: rgb(56, 205, 240);
 	color: #fff;
-	@media (max-width: 485px) {
-		font-size: 8px;
-		padding: 2px;
-		border: 0px;
-		
-	}
 `;
 
 export const Select = styled.select`

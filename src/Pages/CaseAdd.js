@@ -4,13 +4,16 @@ import axios from './../Constants/axios'
 export default class CaseAdd extends Component {
 
   state ={
+    localcode: localStorage.getItem('code'),
     code: localStorage.getItem('code'),
     name: '',
     description: '',
     adhaar: '',
     file: {},
     mark: '',
-    imageUploadProgress: '0'
+    type: '',
+    imageUploadProgress: '0',
+    stations: []
   }
   handleInputChange = (e) => {
     this.setState({
@@ -45,7 +48,6 @@ export default class CaseAdd extends Component {
       .then((res) => {
         
         console.log(res)
-        alert('Added Successfully')
         setTimeout(() => {
           window.location.pathname = "/"
         }, 1000)
@@ -63,6 +65,21 @@ export default class CaseAdd extends Component {
 
   }
 
+  componentWillMount(){
+    if(localStorage.getItem('code') === 'ADMIN'){
+    axios.get('getstation')
+    .then(res => {
+      console.log(res)
+      const st = res.data.data;
+      st.shift()
+      console.log(st)
+      this.setState({
+        stations: st
+      })
+    })
+    .catch(err => console.log(err.response)) 
+  }
+}
   handleUploadPhoto = (e) => {
     this.setState({
       
@@ -74,16 +91,16 @@ export default class CaseAdd extends Component {
   render() {
     
     return (
-      <Container className="mt-5">
+      <Container className="mt-3 mb-2">
         <div style={{width: '100%', textAlign: 'center'}} className="mt-2 mb-3" ><span>Fields marked with <span style={{color: 'red'}}>&#42;</span> are mandatory</span></div>
         <Form>
 
-          {this.state.code !== 'ADMIN' ? <Row className="form-input">
+          {this.state.localcode !== 'ADMIN' ? <Row className="form-input">
             <Col md="3">
             <Label  for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
             </Col>
             <Col md="9">
-            <input style={{backgroundColor: "grey", fontWeight: '1000'}} className="form-control" type="textfileld" name="code" id="code" value={this.state.code} disabled/>
+            <input style={{backgroundColor: "grey", fontWeight: '1000'}} className="form-control" type="textfileld" name="code" id="code" value={this.state.localcode} disabled/>
             </Col >
           </Row> 
           :
@@ -92,7 +109,14 @@ export default class CaseAdd extends Component {
             <Label for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
             </Col>
             <Col md="9">
-            <input  className="form-control" type="textfileld" name="code" id="code" onChange={(e) => this.handleInputChange(e)} required/>
+            <select className="form-control" name="code" id="code" onChange={(e) => this.handleInputChange(e) }>
+            <option value="" hidden>Select</option>
+            {this.state.stations.map((val, i) => {
+              return(
+              <option value={val} key={i}>{val}</option>
+              )
+            })}
+            </select>
             </Col >
           </Row>
           }
@@ -103,6 +127,21 @@ export default class CaseAdd extends Component {
             </Col>
             <Col md="9">
             <input className="form-control" type="textfileld" name="name" id="name" value={this.state.name} onChange={(e) => this.handleInputChange(e)} required/>
+            </Col >
+          </Row>
+          <br/>
+          <Row className="form-input">
+            <Col md="3">
+            <Label for="type">Type: </Label>
+            </Col>
+            <Col md="9">
+            <select className="form-control" name="type" id="type" onChange={(e) => this.handleInputChange(e) }>
+              <option value="" hidden>Select</option>
+              
+              <option value="criminal">Criminal</option>
+              <option value="missing">Missing</option>
+            
+            </select>
             </Col >
           </Row>
           <br/>
