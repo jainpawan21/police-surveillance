@@ -23,35 +23,43 @@ export default class CaseAdd extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('file', this.state.file)
-    formData.append('stationcode', this.state.code)
-    formData.append('name', this.state.name)
-    formData.append('desc', this.state.description)
-    formData.append('mark', this.state.mark)
-    console.log(formData)
-    axios.post('upload',
-      
-      formData,
-      {
-        onUploadProgress: (p) => this.setState({imageUploadProgress: (Math.floor((p.loaded / this.state.file.size) * 100))})
-      }
-    )
-    .then((res) => {
-      console.log(res)
-      alert('Added Successfully')
-      setTimeout(() => {
-        window.location.pathname = "/"
-      }, 1000)
-    })
-    .catch((err) => {
-      this.setState({
-        imageUploadProgress: ''
+    if(!this.state.file || !this.state.code || !this.state.name || !this.state.description || !this.state.mark){
+      alert('Please fill all the required fields')
+    }
+    else{
+      const formData = new FormData()
+      formData.append('file', this.state.file)
+      formData.append('stationcode', this.state.code)
+      formData.append('name', this.state.name)
+      formData.append('desc', this.state.description)
+      formData.append('mark', this.state.mark)
+      formData.append('added', new Date())
+      console.log(formData)
+      axios.post('upload',
+        
+        formData,
+        {
+          onUploadProgress: (p) => this.setState({imageUploadProgress: (Math.floor((p.loaded / this.state.file.size) * 100))})
+        }
+      )
+      .then((res) => {
+        
+        console.log(res)
+        alert('Added Successfully')
+        setTimeout(() => {
+          window.location.pathname = "/"
+        }, 1000)
       })
-      console.log(err.response)
-      alert('Can Not Add Right Now')
-     
-    })
+      .catch((err) => {
+        this.setState({
+          imageUploadProgress: ''
+        })
+        console.log(err.response)
+        alert('Can Not Add Right Now')
+       
+      })
+  
+    }
 
   }
 
@@ -69,14 +77,25 @@ export default class CaseAdd extends Component {
       <Container className="mt-5">
         <div style={{width: '100%', textAlign: 'center'}} className="mt-2 mb-3" ><span>Fields marked with <span style={{color: 'red'}}>&#42;</span> are mandatory</span></div>
         <Form>
-          <Row className="form-input">
+
+          {this.state.code !== 'ADMIN' ? <Row className="form-input">
             <Col md="3">
             <Label  for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
             </Col>
             <Col md="9">
             <input style={{backgroundColor: "grey", fontWeight: '1000'}} className="form-control" type="textfileld" name="code" id="code" value={this.state.code} disabled/>
             </Col >
+          </Row> 
+          :
+           <Row className="form-input">
+            <Col md="3">
+            <Label for="code">Station Code<span style={{color: 'red'}}>&#42;</span> : </Label>
+            </Col>
+            <Col md="9">
+            <input  className="form-control" type="textfileld" name="code" id="code" onChange={(e) => this.handleInputChange(e)} required/>
+            </Col >
           </Row>
+          }
           <br/>
           <Row className="form-input">
             <Col md="3">

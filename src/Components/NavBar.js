@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 class NavBar extends Component{
     state = {
         isNavOpen : false,
+        code: localStorage.getItem('code')
     };
 
   toggleNav = () => {
@@ -38,14 +39,14 @@ class NavBar extends Component{
                     </NavItem>
                     <NavItem className="ml-auto mr-auto" >
                         <NavLink className="nav-link" to="/add">
-                          Add
+                          Add Case
                         </NavLink>
                     </NavItem>
-                    <NavItem className="ml-auto mr-auto">
-                        <NavLink className="nav-link" to="/status">
-                          Check Status
+                    {this.state.code === 'ADMIN' ? <NavItem className="ml-auto mr-auto">
+                        <NavLink className="nav-link" to="/stationadd">
+                          Add Station
                         </NavLink>
-                    </NavItem>
+                    </NavItem> : null }
                     {localStorage.getItem('token') !== undefined ? <NavItem className="ml-auto mr-auto">
                         <Button  onClick={(e) => this.logout(e)}>LogOut</Button>
                        

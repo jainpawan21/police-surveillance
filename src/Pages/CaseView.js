@@ -59,7 +59,7 @@ export default class CaseView extends Component {
     const st = this.state.status ? 'Found' : 'Not Found'
     if(this.state.loading){
       return (
-        <div style={{display: 'flex', justifyContent: 'center', height:'80vh'}}>
+        <div style={{display: 'flex', justifyContent: 'center', height:'88vh', backgroundColor: 'black'}}>
 					<Loading />
 				</div>
       )
